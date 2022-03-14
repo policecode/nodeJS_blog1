@@ -31,11 +31,11 @@
     "md5": "^2.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.3",
+    "nodemon": "^2.0.15",
     "mongoose-delete": "^0.5.4"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15",
     "sass": "^1.49.7"
   }
 }
