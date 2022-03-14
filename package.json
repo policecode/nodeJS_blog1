@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "watch": "sass --watch src/resources/scss:src/public/styleCss",
-    "start": "nodemon --inspect src/index.js",
+    "dev": "nodemon --inspect src/index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,11 +32,11 @@
     "md5": "^2.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.3",
-    "nodemon": "^2.0.15",
     "morgan": "^1.10.0",
-    "sass": "^1.49.7",
     "mongoose-delete": "^0.5.4"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.7"
   }
 }
