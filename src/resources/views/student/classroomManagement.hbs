@@ -1,0 +1,235 @@
+<header>
+    <h1 class="m-0 style-hello">DANH SÁCH THÀNH VIÊN LỚP 12{{lopHoc.nameClass}} NIÊN KHÓA {{lopHoc.studyTime}}</h1>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/students/create/{{lopHoc._id}}">Thêm thành viên</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/classes/{{lopHoc._id}}">Lớp 12{{lopHoc.nameClass}}</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container">
+     <div class="example">
+        <form name="container-form-students" method="POST" action="/students/optionStudent">
+            <div class="container">
+                <div class="row">
+                        <h2>
+                            DANH SÁCH LỚP HỌC
+                            <a href="/students/restore/{{lopHoc._id}}" class="restore-link">
+                                <i class="fa-solid fa-trash-can"></i>
+                                <div class="count-restore">{{count}}</div>
+                            </a>
+                        </h2>
+                    
+                        <div class="input-group mb-3">
+                                <select class="custom-select mr-4 select-size js-selector" id="inputGroupSelect01" name="action" required>
+                                    <option value="" selected>--- Chọn chức năng ---</option>
+                                    <option value="delete">Xóa</option>
+                                </select>
+                                <button  class="btn btn-success p-0 pl-2 pr-2 text-white js-btn-select" disabled>Thực hiện</button>
+
+                        </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>
+                                        Họ Tên 
+                                        <a href="?_sort&column=fullName&type={{getType 'fullName' _sort}}" class="ml-2">
+                                            <i class="{{getIcon 'fullName' _sort}} icon-color"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        Nhà ở
+                                        <a href="?_sort&column=homeTown&type={{getType 'homeTown' _sort}}" class="ml-2">
+                                            <i class="{{getIcon 'homeTown' _sort}} icon-color"></i>
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                        <div class="form-check input-size d-none js-input-check">
+                                            <input type="checkbox" class="form-check-input" id="checkinput-All">
+                                            <label for="checkinput-All">
+                                                <i class="fa-solid fa-check icon-check"></i>
+                                            </label>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each student}}
+                                <tr>
+                                    <td>{{sumIndex @index}}</td>
+                                    <td>{{this.fullName}}</td>
+                                    <td>{{this.homeTown}}</td>
+                                    <td>
+                                        <a href="/students/{{this._id}}">Thông tin chi tiết</a>
+                                    </td>
+                                    <td>
+                                        <a  class="btn btn-success p-0 pl-2 pr-2 text-white" href="/students/updateForm/{{this._id}}">Sửa</a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success p-0 pl-2 pr-2 js-btnStudent" data-name="{{this.fullName}}" data-id="{{this._id}}" data-toggle="modal" data-target="#editModal">
+                                            <span class="oi oi-x text-danger"></span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <div class="form-check input-size d-none js-input-check">
+                                            <input type="checkbox" class="form-check-input input-check-student" id="checkinput-{{@index}}" name="students[]" value="{{this._id}}">
+                                            <label for="checkinput-{{@index}}">
+                                                <i class="fa-solid fa-check icon-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                
+                            </tbody>
+                        </table>
+
+                </div>
+            </div>
+         </form>
+        <nav aria-label="..." class="mb-4">
+            <ul class="pagination js-pagination">
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+{{!-- Modal --}}
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa thông tin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body--content"></p>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger pl-4 pr-4 btn-delete">Có</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="form-delete-student" method="POST"></form>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var btnDel = document.querySelector('.btn-delete');
+    var formDel = document.forms['form-delete-student'];
+    var selector = $('.js-selector');
+    var inputCheckStudent = $('.input-check-student');
+    var inputCheckAll = $('#checkinput-All');
+    var btnSelect = $('.js-btn-select');
+    var id;
+    pagination();
+    
+    $('#editModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var fullName = button.data('name');
+        $('.modal-body--content')[0].innerHTML = "Bạn có muốn xóa " + fullName + " ra khỏi danh sách!!!";
+        id = button.data('id');
+    })
+
+    btnDel.onclick = function() {
+        formDel.action = '/students/deleteStudent/' + id + '?_method=DELETE';
+        formDel.submit();
+    }
+
+    selector.change(function() {
+        if (this.value) {
+            $('.js-input-check').removeClass('d-none');
+        } else {
+            $('.js-input-check').addClass('d-none');
+            inputCheckStudent.prop('checked', this.value);
+            inputCheckAll.prop('checked', this.value);
+            renderBtnSelect()
+        }
+    })
+
+    inputCheckAll.change(function() {
+        inputCheckStudent.prop('checked', this.checked);
+        renderBtnSelect();
+    })
+
+    inputCheckStudent.change(function() {
+        let isCheckInput = inputCheckStudent.length === $('.input-check-student:checked').length;
+        inputCheckAll.prop('checked', isCheckInput);
+        renderBtnSelect()
+    })
+
+    function renderBtnSelect() {
+        let isBtnSelect = $('.input-check-student:checked').length > 0;
+        btnSelect.attr('disabled', !isBtnSelect);
+    }
+    function pagination() {
+        let navPagination = document.querySelector('.js-pagination');
+        const pageNumber = Math.ceil({{countStudent}}/10);
+        const currentPage = {{_page.number}};
+        let html = '';
+        // btn Pre
+        if( currentPage > 1) {
+            html += `<li class="page-item">
+                        <a class="page-link" href="?page=${currentPage - 1}">Previous</a>
+                    </li>`
+        } else {
+            html += `<li class="page-item disabled">
+                        <a class="page-link" href="">Previous</a>
+                    </li>`
+        }
+        //btn Number
+        let i = 1;
+        let maxPage = i + 4;
+        if( currentPage > 3 && (currentPage+2) < pageNumber) {
+            i += currentPage - 3;
+            maxPage = i + 4;
+        }
+        if( (currentPage + 2) >= pageNumber) {
+            i = pageNumber - 4;
+            maxPage = pageNumber;
+        }
+        if(pageNumber === 0) {
+            i = 1;
+            maxPage = 0;
+        }
+        for( i ; i <= maxPage; i++) {
+            if(i === currentPage) {
+                html += `<li class="page-item active"><a class="page-link" href="?page=${i}">${i}</a></li>`;
+            } else {
+                html += `<li class="page-item"><a class="page-link" href="?page=${i}">${i}</a></li>`;
+            }
+        }
+        // btn Next
+        if( currentPage < pageNumber) {
+            html += `<li class="page-item">
+                        <a class="page-link" href="?page=${currentPage + 1}">Next</a>
+                    </li>`
+        } else {
+            html += `<li class="page-item disabled">
+                        <a class="page-link" href="">Next</a>
+                    </li>`
+        }
+
+        navPagination.innerHTML = html;
+    }
+})
+</script>

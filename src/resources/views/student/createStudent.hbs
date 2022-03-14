@@ -1,0 +1,47 @@
+<header>
+    <h1 class="m-0 style-hello">NHẬP THÔNG TIN THÀNH VIÊN LỚP 12{{lopHoc.nameClass}} NIÊN KHÓA {{lopHoc.studyTime}}</h1>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/classes/{{lopHoc._id}}">Thành viên lớp 12{{lopHoc.nameClass}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/students/groups/{{lopHoc._id}}">Quản lý lớp</a>
+        </li>
+    </ul>
+</header>
+
+<div class="main-w3layouts wrapper">
+    <h1>Thông tin của thành viên</h1>
+    <div class="main-agileinfo">
+      <div class="agileits-top">
+        <form action="/students/addStudent" method="POST">
+          <input class="text" type="text" name="fullName" placeholder="Họ và tên" required="">
+          <input class="text w3lpass date" id="inputdate" type="date" name="birthday" required="">
+          <input class="text" type="text" name="phone" placeholder="Nhập số điện thoại" required="">
+          <input class="text w3lpass" type="text" name="avatar" placeholder="Avatar (chèn link vào đây)" required="">
+          <input class="text w3lpass" type="text" name="facebook" placeholder="Facebook (chèn link vào đây)" required="">
+          <input class="text w3lpass" type="text" name="homeTown" placeholder="Địa chỉ nơi ở" required="">
+          <input class="d-none" type="text" name="keyClass" value="{{lopHoc._id}}">
+        
+          <input type="submit" value="Thêm mới">
+        </form>
+      </div>
+    </div>
+
+    <!-- //copyright -->
+    <ul class="colorlib-bubbles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>

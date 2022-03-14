@@ -1,0 +1,45 @@
+<header>
+    <img class="logo-school" src="http://vannoi.edu.vn/SiteFolders/thptvannoi/5063/banner/vannoi.jpg" alt="">
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/students/create/{{student.keyClass}}">Thêm thành viên</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/students/groups/{{student.keyClass}}">Quản lý lớp</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container mb-4">
+    <form method="POST" action="/students/changeStudent/{{student._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Họ tên</label>
+            <input type="text" class="form-control" name="fullName" id="exampleInputEmail1" value="{{student.fullName}}" placeholder="Họ và tên">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Ngày sinh</label>
+            <input type="date" class="date form-control" name="birthday" value="{{getYYYmmDD student.birthday}}" id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword2">Số điện thoại</label>
+            <input type="text" class="form-control" name="phone" id="exampleInputPassword2" value="{{student.phone}}" placeholder="Số điện thoại">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword3">Địa chỉ Facebook</label>
+            <input type="text" class="form-control" name="facebook" id="exampleInputPassword3" value="{{student.facebook}}" placeholder="Facebook">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Địa chỉ nhà ở</label>
+            <input type="text" class="form-control" name="homeTown" id="exampleInputPassword4" value="{{student.homeTown}}" placeholder="Địa chỉ nhà ở">
+        </div>
+        <div class="form-group collapse" >
+            <input type="text" name="keyClass"  value="{{student.keyClass}}">
+        </div>
+        <div class="change-btn">
+            <button type="submit" class="btn btn-success ">Thay đổi</button>
+        </div>
+    </form>
+</div>

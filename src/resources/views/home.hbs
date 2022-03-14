@@ -1,0 +1,25 @@
+{{> header}}
+
+<div class="mt-4 container">
+    <div class="row">
+        {{#each lopHoc}}
+       <div class="mb-4 col-lg-3 col-md-6"> 
+            <div class="card" style="width: 100%;">
+                <a href="/classes/{{this._id}}">
+                    <img class="card-img-top img-thumbnail img-size" src="{{this.imgClass}}" alt="Card image cap">
+                </a>
+                <div class="card-body">
+                    <a href="/classes/{{this._id}}">
+                        <p class="card-text text-center mb-0">12{{this.nameClass}}</p>
+                    </a>
+                     <a href="/classes/{{this._id}}">
+                        <p class="card-text text-center">{{this.studyTime}}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+         
+    </div>
+
+</div>

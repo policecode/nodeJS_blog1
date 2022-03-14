@@ -1,0 +1,31 @@
+<header>
+    <h1 class="m-0 style-hello">CHÀO MỪNG BẠN ĐẾN VỚI LỚP 12{{lopHoc.nameClass}} NIÊN KHÓA {{lopHoc.studyTime}}</h1>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/classes/{{lopHoc._id}}">Danh sách lớp</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header position-relative">
+            <img src="{{student.avatar}}" alt="{{student.fullName}}", style="width: 100%;">
+            <div class="photoGrap position-absolute">
+                <i class="fa-solid fa-camera"></i>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Họ tên: {{student.fullName}}</h4>
+            <p class="card-text">Ngày sinh: {{getDDMMYYY student.birthday}}</p>
+            <p class="card-text">Số điện thoại: {{student.phone}}</p>
+            <p class="card-text">Chỗ ở: {{student.homeTown}}</p>
+            <a href="{{student.facebook}}" class="btn btn-primary ">
+                <i class="fa-brands fa-facebook-square"></i> Facebook
+            </a>
+        </div>
+    </div>
+</div>
